@@ -346,7 +346,7 @@ public class GwtQueryBenchModule implements EntryPoint {
     $("#startrace").click(ask ? askBenchMarks: runBenchMarks);
     $("#about").click(new Function(){
       @Override
-      public void f() {
+    public void f() {
         helpPanel.center();
       }
     });
@@ -356,7 +356,7 @@ public class GwtQueryBenchModule implements EntryPoint {
    * EntryPoint
    */
   @Override
-  public void onModuleLoad() {
+public void onModuleLoad() {
 
     final MySelectors m = GWT.create(MySelectors.class);
 
@@ -394,7 +394,7 @@ public class GwtQueryBenchModule implements EntryPoint {
   private void d(int selnumber, int benchnumber, String text) {
     grid.setText(selnumber + 1, benchnumber + 1, text);
     Element td = grid.getCellFormatter().getElement(selnumber + 1, benchnumber + 1);
-    DOM.scrollIntoView((com.google.gwt.user.client.Element) td);
+    DOM.scrollIntoView(td);
   }
 
   private void flagWinner(String idWinner) {
@@ -470,7 +470,9 @@ public class GwtQueryBenchModule implements EntryPoint {
    * Initialize the track with the horses
    */
   private void initTrack(Benchmark... benchs) {
-    if (!useTrack) return;
+    if (!useTrack) {
+        return;
+    }
     String tpl = "<div id=%ID%horse class=horse><nobr><img class=himg src=images/bench/horse.gif><span>%ID%</span></nobr></div>";
     GQuery g = $("#racefield").html("");
     for (Benchmark b : benchs) {
@@ -500,12 +502,14 @@ public class GwtQueryBenchModule implements EntryPoint {
    * so a horse could move back.
    */
   private void moveHorses(Benchmark[] b, int row, double[] totalTimes) {
-    if (!useTrack) return;
+    if (!useTrack) {
+        return;
+    }
     double winnerTime = Double.MAX_VALUE;
     for (double d : totalTimes) {
       winnerTime = Math.min(winnerTime, d);
     }
-    double winnerPos = row * (double) trackWidth / (double) ds.length;
+    double winnerPos = row * trackWidth / ds.length;
     for (int i = 0; i < b.length; i++) {
       GQuery g = $("#" + b[i].getId() + "horse");
       double pos =   winnerPos * winnerTime / totalTimes[i];
